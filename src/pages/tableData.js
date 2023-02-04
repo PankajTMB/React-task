@@ -74,7 +74,7 @@ const TableData = ()=>{
     }
     
     const Search = (e)=>{
-        if(e.target.value.length > 1){
+        if(e.target.value.length > 0){
             let filterData = userList.filter(elem=>{
                 return elem.location.city.toUpperCase().includes(e.target.value.toUpperCase());
             })
@@ -100,22 +100,29 @@ const TableData = ()=>{
                             <th><button onClick={()=>{shortFunc('Name')}}>Name</button></th>
                             <th><button onClick={()=>{shortFunc('Image')}}>Image</button></th>
                         </tr>
-                        {userData.map((elem,index)=>{
-                            return (
-                            <tr className="table_data_item">
-                                <td>{elem.location.city}</td>
-                                <td>{elem.location.state}</td>
-                                <td>{elem.location.country}</td>
-                                <td>{elem.location.postcode}</td>
-                                <td>{elem.phone}</td>
-                                <td>{elem.name.title} {elem.name.first} {elem.name.last}</td>
-                                <td>
-                                    <img src={elem.picture.medium} alt={elem.name.first}></img>
-                                </td>
-                            </tr>
-                            )
-                        })}
+                        {userData.length > 0 &&
+                            userData.map((elem)=>{
+                                return (
+                                <tr className="table_data_item">
+                                    <td>{elem.location.city}</td>
+                                    <td>{elem.location.state}</td>
+                                    <td>{elem.location.country}</td>
+                                    <td>{elem.location.postcode}</td>
+                                    <td>{elem.phone}</td>
+                                    <td>{elem.name.title} {elem.name.first} {elem.name.last}</td>
+                                    <td>
+                                        <img src={elem.picture.medium} alt={elem.name.first}></img>
+                                    </td>
+                                </tr>
+                                )
+                            })
+                        }
                     </table>
+                    {userData.length === 0 && 
+                        <h2 className="info_message">
+                            There is No data Found
+                        </h2>
+                    }
                 </div>
             </div>
         </>
